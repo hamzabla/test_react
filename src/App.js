@@ -245,14 +245,14 @@ const input = [{
   },
 ]
 
-const xLabels = new Array(24).fill(0).map((_, i) => `${i>9? i: "0"+i }h - ${i>9? i+1: "0"+(i+1)}h`);
-const yLabels = [ "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 
+const xLabels = [ "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+const yLabels = new Array(24).fill(0).map((_, i) => `${i>9? i: "0"+i }h - ${i+1>9? i+1: "0"+(i+1)}h`);
 
-let dataa = new Array(7).fill(0).map(() => new Array(24).fill(0));
+let dataa = new Array(24).fill(0).map(() => new Array(7).fill(0));
 
 for (let value of input) {
-  dataa[value.day][value.slot] = value.avg_turnover;
+  dataa[value.slot][value.day] = value.avg_turnover;
 }
 
 
@@ -264,7 +264,7 @@ function App() {
   xLabels={xLabels} 
   yLabels={yLabels} 
   yLabelTextAlign= {"left"}
-  yLabelWidth= {70}
+  yLabelWidth= {80}
   data={dataa}
   //squares
   //onClick={(x, y) => alert(`Clicked ${x}, ${y}`)}
@@ -274,15 +274,27 @@ function App() {
       {
         background: `rgba(244, 86, 66)`,
         fontSize: "20px",
+        borderRadius: "5%",
+        padding: "8px",
+        marginRight: "5px",
+        marginBottom: "3px"
       }:
       (1 - (max - value) / (max - min) > 0)?
       {
         background: `rgba(24, 214, 72)`,
         fontSize: "20px", 
+        borderRadius: "5%",
+        padding: "8px",
+        marginRight: "5px",
+        marginBottom: "3px"
       }:
       {
         background: `rgba(244, 244, 244)`,
         fontSize: "20px", 
+        borderRadius: "5%",
+        padding: "8px",
+        marginRight: "5px",
+        marginBottom: "3px"
       }
     )
     }
